@@ -5,11 +5,11 @@ package com.intellijentes.sys.colasAlegres.domain
  * Este modelo contiene la estructura completa de la entidad,
  * a diferencia de los DTOs que solo transportan datos específicos.
  */
-data class Usuario(
+data class User(
     val id: String,
     val name: String,
-    val email: String,
-    val hashPassword: String,
-    val zipCode: Int,
-    val isActive: Boolean = true
+    var email: String,
+    var hashPassword : String? = null ,
+    var zipCode: String,
+    var isActive: Boolean = true
 )
