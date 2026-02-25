@@ -62,7 +62,7 @@ class UserController {
      *
      * URL: http://localhost:8080/users/register
      *
-     * Metodo: POST
+     * Método: POST
      *
      * @param createUserRequest DTO que representa el body del request.
      * @return ResponseEntity con el nuevo usuario creado y un código HTTP 200 (ok).
@@ -134,7 +134,7 @@ class UserController {
         )
 
         val logoutResponse = LogoutUser(
-            fakeUser.id,
+            fakeUser.name,
             Date.from(Instant.now())
         )
 
