@@ -20,8 +20,8 @@ import java.util.Date
 import java.util.UUID
 
 /**
- * Controlador encargado de responder a los enpoints REST relacionados
- * con la gesion de usuarios.
+ * Controlador encargado de responder a los endpoints REST relacionados
+ * con la gestion de usuarios.
  *
  */
 @Controller
@@ -40,7 +40,7 @@ class UserController {
      *
      * Metodo: GET
      *
-     * @return ResponseEntitiy con un objeto User y codigo HTTP 200 (ok).
+     * @return ResponseEntity con un objeto User y codigo HTTP 200 (ok).
      */
     @GetMapping("/me")
     fun retrieveUser() : ResponseEntity<User> {
@@ -58,7 +58,7 @@ class UserController {
     }
 
     /**
-     * Endpoit encargado de registrar a un usario nuevo en la plataforma.
+     * Endpoint encargado de registrar a un usuario nuevo en la plataforma.
      *
      * URL: http://localhost:8080/users/register
      *
@@ -142,7 +142,7 @@ class UserController {
     }
 
     /**
-     * Enpoint encargado de actualizar la informacion del usuario
+     * Endpoint encargado de actualizar la informacion del usuario
      *
      * URL: http//localhost:8080/users
      *
