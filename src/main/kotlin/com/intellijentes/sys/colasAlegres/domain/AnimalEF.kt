@@ -4,7 +4,7 @@ import com.intellijentes.sys.colasAlegres.dto.request.CreateAnimalRequest
 import java.util.UUID
 
 /**
- * Extension Fuction que convierte un DTO de tipo CreateAnimalRequest
+ * Extension Function que convierte un DTO de tipo CreateAnimalRequest
  * en un objeto de dominio Animal
  */
 

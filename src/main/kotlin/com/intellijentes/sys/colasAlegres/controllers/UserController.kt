@@ -21,7 +21,7 @@ import java.util.UUID
 
 /**
  * Controlador encargado de responder a los endpoints REST relacionados
- * con la gestion de usuarios.
+ * con la gestión de usuarios.
  *
  */
 @Controller
@@ -29,18 +29,18 @@ import java.util.UUID
 class UserController {
 
     /**
-     * Logger encargado de registrar eventos importantes en el flujo de ejecucion.
+     * Logger encargado de registrar eventos importantes en el flujo de ejecución.
      */
     val logger: Logger = LoggerFactory.getLogger(UserController::class.java)
 
     /**
-     * Endpoint encargado de recuperar la informacion de un usuario autenticado.
+     * Endpoint encargado de recuperar la información de un usuario autenticado.
      *
      * URL: http://localhost:8080/users/me
      *
-     * Metodo: GET
+     * Método: GET
      *
-     * @return ResponseEntity con un objeto User y codigo HTTP 200 (ok).
+     * @return ResponseEntity con un objeto User y código HTTP 200 (ok).
      */
     @GetMapping("/me")
     fun retrieveUser() : ResponseEntity<User> {
@@ -65,7 +65,7 @@ class UserController {
      * Metodo: POST
      *
      * @param createUserRequest DTO que representa el body del request.
-     * @return ResponseEntity con el nuevo usuario creado y un codigo HTTP 200 (ok).
+     * @return ResponseEntity con el nuevo usuario creado y un código HTTP 200 (ok).
      */
     @PostMapping("/register")
     fun addUser(
@@ -80,14 +80,14 @@ class UserController {
     }
 
     /**
-     * Endpoint encargado de la autenticacion de un usuario
+     * Endpoint encargado de la autenticación de un usuario
      *
      * URL: http://localhost:8080/users/login
      *
-     * Metodo: POST
+     * Método: POST
      *
      * @param loginUserRequest DTO con las credenciales de acceso del usuario.
-     * @return Codigo HTTP 200 si la autenticacion con las credenciales fue correcta,
+     * @return Código HTTP 200 si la autenticación con las credenciales fue correcta,
      *      HTTP 400 si fue incorrecta
      */
     @PostMapping("/login")
@@ -114,13 +114,13 @@ class UserController {
     }
 
     /**
-     * Endpoint encargado de cerrar la sesion de un usuario
+     * Endpoint encargado de cerrar la sesión de un usuario
      *
      * URL: http//localhost:8080/users/logout
      *
-     * Metodo: POST
+     * Método: POST
      *
-     * @return ResponseEntity con informacion de logout HTTP 200 si fue un exito
+     * @return ResponseEntity con información de logout HTTP 200 si fue un éxito
      */
     @PostMapping("/logout")
     fun logoutUser() : ResponseEntity<Any> {
@@ -142,13 +142,13 @@ class UserController {
     }
 
     /**
-     * Endpoint encargado de actualizar la informacion del usuario
+     * Endpoint encargado de actualizar la información del usuario
      *
      * URL: http//localhost:8080/users
      *
-     * Metodo: PUT
+     * Método: PUT
      *
-     * @return ResponseEntity con la informacion del usuario actualizada
+     * @return ResponseEntity con la información del usuario actualizada
      */
     @PutMapping
     fun updateInfoUser(

@@ -2,7 +2,7 @@ package com.intellijentes.sys.colasAlegres.dto.request
 
 /**
  * DTO mediante el cual recibimos el correo y la contraseña como
- * cuerpo de peticion para iniciar sesion a usuarios.
+ * cuerpo de petición para iniciar sesión a usuarios.
  * */
 data class LoginUserRequest (
     val email: String,

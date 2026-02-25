@@ -4,7 +4,7 @@ import  com.intellijentes.sys.colasAlegres.dto.request.CreateUserRequest
 import java.util.UUID
 
 /**
- * Extension Fuction que convierte un DTO de tipo CreateUserRequest
+ * Extension Function que convierte un DTO de tipo CreateUserRequest
  * en un objeto de dominio Usuario
  */
 

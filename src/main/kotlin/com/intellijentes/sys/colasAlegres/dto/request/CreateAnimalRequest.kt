@@ -1,8 +1,8 @@
 package com.intellijentes.sys.colasAlegres.dto.request
 
 /**
- * DTO mediante el cual recbimos de la peticion los parametros necesarios
- * para crear un animal en adopcion.
+ * DTO mediante el cual recibimos de la petición los parámetros necesarios
+ * para crear un animal en adopción.
  * */
 data class CreateAnimalRequest (
     val name: String,

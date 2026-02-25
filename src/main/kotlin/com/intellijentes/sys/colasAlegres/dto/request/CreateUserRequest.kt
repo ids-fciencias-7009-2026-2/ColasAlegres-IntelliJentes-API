@@ -1,7 +1,7 @@
 package com.intellijentes.sys.colasAlegres.dto.request
 
 /**
- * DTO mediante el cual recibimos informacion de "creacion de usuario"
+ * DTO mediante el cual recibimos información de "creación de usuario"
  * en la forma adecuada de transferencia.
  * */
 data class CreateUserRequest (
