@@ -8,13 +8,13 @@ import java.util.UUID
  * en un objeto de dominio Usuario
  */
 
-fun CreateUserRequest.toUsuario(): Usuario{
+fun CreateUserRequest.toUsuario(): User{
 
     // Generamos un identificador único de forma simulada
     val id = "id-random-" + UUID.randomUUID().toString()
 
     // Creamos el objeto de dominio usando los datos del DTO
-    return Usuario(
+    return User(
         id = id,
         name = this.name,
         email = this.email,
