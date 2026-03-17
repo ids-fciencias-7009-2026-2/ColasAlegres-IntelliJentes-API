@@ -2,6 +2,8 @@ package com.intellijentes.sys.colasAlegres.models.entities
 
 import com.intellijentes.sys.colasAlegres.models.entities.domain.User
 
+
+
 /* Regresa una instancia de EntidadUsuario a apartir del Usuario actual */
 fun User.toUserEntity(): UserEntity {
     return UserEntity(

@@ -9,7 +9,10 @@ data class User(
     val id: String,
     val name: String,
     var email: String,
-    var hashPassword : String? = null ,
+    var hashPassword : String,
     var zipCode: String,
     var isActive: Boolean = true
-)
+){
+    /*public fun getHashPassword(): String? {return this.hashPassword}
+    public fun setHashPassword(hashPass: String?){this.hashPassword = hashPass}*/
+}

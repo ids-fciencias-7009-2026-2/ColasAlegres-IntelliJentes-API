@@ -8,6 +8,9 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.util.UUID
 
+/**
+ * Crea el modelo relacional de la tabla para usuarios.
+ * */
 @Entity
 @Table(name = "users")
 data class UserEntity(
@@ -15,6 +18,6 @@ data class UserEntity(
     val id: String = UUID.randomUUID().toString(),
     val name: String = "",
     val email: String = "",
-    val password: String? = null,
+    val password: String,
     val zipCode: String = ""
 )
