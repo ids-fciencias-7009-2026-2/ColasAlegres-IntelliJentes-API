@@ -6,15 +6,15 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.util.UUID
 
 @Entity
 @Table(name = "users")
-class UserEntity(
+data class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
-    val name: String,
-    val email: String,
-    val password: String,
-    val zipCode: String
+    val id: String = UUID.randomUUID().toString(),
+    val name: String = "",
+    val email: String = "",
+    val password: String? = null,
+    val zipCode: String = ""
 )

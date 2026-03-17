@@ -6,6 +6,7 @@ import com.intellijentes.sys.colasAlegres.models.entities.dto.request.CreateUser
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LoginUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.UpdateUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.response.LogoutUser
+import com.intellijentes.sys.colasAlegres.services.UserService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
@@ -24,9 +26,12 @@ import java.util.UUID
  * con la gestión de usuarios.
  *
  */
-@Controller
+@RestController
 @RequestMapping("/users")
-class UserController {
+class UserController(
+    /* Integra y comunica la capa de servicio relacionada con el usuario */
+    private val userService: UserService
+) {
 
     /**
      * Logger encargado de registrar eventos importantes en el flujo de ejecución.
@@ -73,7 +78,7 @@ class UserController {
     ): ResponseEntity<User> {
 
         val newUser = createUserRequest.toUsuario()
-
+        userService.create(newUser)
         logger.info("New user to register : $newUser")
 
         return ResponseEntity.ok(newUser)
