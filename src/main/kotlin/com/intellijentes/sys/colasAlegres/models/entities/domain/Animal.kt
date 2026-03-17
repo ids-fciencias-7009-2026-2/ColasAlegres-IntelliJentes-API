@@ -1,4 +1,4 @@
-package com.intellijentes.sys.colasAlegres.domain
+package com.intellijentes.sys.colasAlegres.models.entities.domain
 
 /**
  * Modelo de dominio que representa a un Animal en el sistema.

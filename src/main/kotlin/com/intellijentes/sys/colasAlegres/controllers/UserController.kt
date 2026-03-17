@@ -1,11 +1,11 @@
 package com.intellijentes.sys.colasAlegres.controllers
 
-import com.intellijentes.sys.colasAlegres.domain.User
-import com.intellijentes.sys.colasAlegres.domain.toUsuario
-import com.intellijentes.sys.colasAlegres.dto.request.CreateUserRequest
-import com.intellijentes.sys.colasAlegres.dto.request.LoginUserRequest
-import com.intellijentes.sys.colasAlegres.dto.request.UpdateUserRequest
-import com.intellijentes.sys.colasAlegres.dto.response.LogoutUser
+import com.intellijentes.sys.colasAlegres.models.entities.domain.User
+import com.intellijentes.sys.colasAlegres.models.entities.domain.toUsuario
+import com.intellijentes.sys.colasAlegres.models.entities.dto.request.CreateUserRequest
+import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LoginUserRequest
+import com.intellijentes.sys.colasAlegres.models.entities.dto.request.UpdateUserRequest
+import com.intellijentes.sys.colasAlegres.models.entities.dto.response.LogoutUser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity

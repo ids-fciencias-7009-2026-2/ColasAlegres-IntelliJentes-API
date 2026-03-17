@@ -1,4 +1,4 @@
-package com.intellijentes.sys.colasAlegres.dto.request
+package com.intellijentes.sys.colasAlegres.models.entities.dto.request
 
 /**
  * DTO mediante el cual recibimos de la petición los parámetros necesarios
