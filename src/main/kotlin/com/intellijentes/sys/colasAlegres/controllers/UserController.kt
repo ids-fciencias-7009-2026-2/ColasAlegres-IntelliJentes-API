@@ -105,20 +105,13 @@ class UserController(
         @RequestBody loginUserRequest: LoginUserRequest
     ): ResponseEntity<Any> {
 
-        val fakeUser = User(
-            "id-random" + UUID.randomUUID().toString(),
-            "Intellij-entes",
-            "intellijentes@example.com",
-            "123456",
-            "04510"
-        )
+        logger.info("Try to login with the email: ${loginUserRequest.email}")
 
-        logger.info("Try to make login with: $loginUserRequest")
-        return if (fakeUser.hashPassword == loginUserRequest.hashPassword) {
-            logger.info("Successful login")
-            ResponseEntity.ok(Any())
+        val token = userService.login(loginUserRequest.email, loginUserRequest.hashPassword)
+
+        return if (token != null) {
+            ResponseEntity.ok(token)
         } else {
-            logger.error("Login failed")
             ResponseEntity.status(401).build()
         }
     }

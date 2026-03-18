@@ -6,6 +6,7 @@ import com.intellijentes.sys.colasAlegres.repositories.UserRepository
 import java.security.MessageDigest
 import java.util.Locale
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 /**
  * Capa de servicio: En esta clase se concentra la logica del negocio relacionada con el usuario.
@@ -57,5 +58,29 @@ class UserService(private val userRepository: UserRepository) {
         val userEntity = user.toUserEntity()
         userRepository.save(userEntity)
         return user
+    }
+
+    /**
+     * Metodo que realiza el inicio de sesion de un usuario.
+     *
+     * Un usuario solo tiene permitido iniciar sesion si sus credenciales son correctas
+     * y si ya tiene una cuenta registrada en la base de datos, de lo contrario no podra
+     * acceder.
+     *
+     * @param email el correo electronico del usuario.
+     * @param password la contrasenia sin hasheo del usuario.
+     * @return String el token generado para su inicio de sesion.
+     */
+    fun login(email: String, password : String): String? {
+
+        val searchedUser = userRepository.findByEmail(email) ?: return null
+        val hashedPassword = hashPassword(password)
+        if(searchedUser.password != hashedPassword) {
+            return null
+        }
+        val token = UUID.randomUUID().toString()
+        searchedUser.token = token
+        userRepository.save(searchedUser)
+        return  token
     }
 }

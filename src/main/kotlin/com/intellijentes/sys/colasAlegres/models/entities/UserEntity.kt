@@ -19,5 +19,6 @@ data class UserEntity(
     val name: String = "",
     val email: String = "",
     val password: String,
-    val zipCode: String = ""
+    val zipCode: String = "",
+    var token: String? = null
 )
