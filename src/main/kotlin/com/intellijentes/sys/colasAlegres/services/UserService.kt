@@ -83,4 +83,20 @@ class UserService(private val userRepository: UserRepository) {
         userRepository.save(searchedUser)
         return  token
     }
+
+    /**
+     * Metodo que realiza el cierre de sesion de un usuario.
+     *
+     * Busca al usuario por su token activo y lo invalida,
+     * de lo contrario retorna null si el token no existe.
+     *
+     * @param token el token activo de la sesion del usuario.
+     * @return String el nombre del usuario que cerro sesion, o null si el token es invalido.
+     */
+    fun logout(token: String): String? {
+        val searchedUser = userRepository.findByToken(token) ?: return null
+        searchedUser.token = null
+        userRepository.save(searchedUser)
+        return searchedUser.name
+    }
 }
