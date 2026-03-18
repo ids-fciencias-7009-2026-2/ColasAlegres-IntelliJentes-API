@@ -7,9 +7,9 @@ import com.intellijentes.sys.colasAlegres.models.entities.toUserEntity
 import java.security.MessageDigest
 
 /**
- *  Capa de servicio: En esta clase se concentra la logica del negocio relacionada
+ *  Capa de servicio: En esta clase se concentra la lógica del negocio relacionada
  *  con el usuario. Dentro del patron diseño repository, esta clase es se encarga de
- *  crear, actualizar y proveer de informacion de usuario, de tal forma que
+ *  crear, actualizar y proveer de información de usuario, de tal forma que
  *  es intermediaria entre UserController y el UserRepository.
  *
  * @param userRepository: variable de clase de tipo UserRepository para interactuar con
@@ -19,21 +19,21 @@ import java.security.MessageDigest
 class UserService(private val userRepository: UserRepository)  {
 
     /**
-     *  Metodo que nos permite implementar una funcion hash para cifrar las
+     *  Método que nos permite implementar una función hash para cifrar las
      *  credenciales sensibles del sistema, como son contraseñas o tokens
-     *  @param userPassword: recibe la cotraseña sin cifrar.
+     *  @param userPassword: recibe la contraseña sin cifrar.
      *  @return encodedHash: la contraseña con hash aplicado.
      * */
     private fun hashPassword(userPassword: String): String {
         val digest  = MessageDigest.getInstance("SHA-256")
-        val encodedHash = digest.update(userPassword.toByteArray())
-        return encodedHash.toString()
+        val hashBytes = digest.digest(userPassword.toByteArray())
+        return hashBytes.joinToString("") { "%02x".format(it) }
     }
 
     /**
-     * Metodo que crea una nueva instancia UserEntity para el userRepository.
+     * Método que crea una nueva instancia UserEntity para el userRepository.
      * Recibe el usuario que se intenta registrar, antes de guardarlo, asegurate
-     * que la contraseña este cifrada.
+     * que la contraseña esté cifrada.
      *
      * @param user: Recibe un usuario.
      * @return user Regresa el mismo usuario con los campos que fueron
