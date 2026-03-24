@@ -18,6 +18,7 @@ data class UserEntity(
     val id: String = UUID.randomUUID().toString(),
     val name: String = "",
     val email: String = "",
-    val password: String = "",
-    val zipCode: String = ""
+    val password: String,
+    val zipCode: String = "",
+    var token: String? = null
 )
