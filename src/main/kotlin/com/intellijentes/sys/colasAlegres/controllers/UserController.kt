@@ -4,6 +4,7 @@ import com.intellijentes.sys.colasAlegres.models.entities.domain.User
 import com.intellijentes.sys.colasAlegres.models.entities.domain.toUsuario
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.CreateUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LoginUserRequest
+import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LogoutUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.UpdateUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.response.LogoutUser
 import com.intellijentes.sys.colasAlegres.services.UserService
@@ -119,29 +120,24 @@ class UserController(
     /**
      * Endpoint encargado de cerrar la sesión de un usuario
      *
-     * URL: http//localhost:8080/users/logout
+     * URL: http://localhost:8080/users/logout
      *
      * Método: POST
      *
-     * @return ResponseEntity con información de logout HTTP 200 si fue un éxito
+     * @param logoutUserRequest DTO con el token activo del usuario.
+     * @return ResponseEntity con información de logout HTTP 200 si fue un éxito,
+     *      HTTP 401 si el token no es válido
      */
     @PostMapping("/logout")
-    fun logoutUser() : ResponseEntity<Any> {
-
-        val fakeUser = User(
-            "id-random" + UUID.randomUUID().toString(),
-            "ColasAlegres",
-            "colasalegres@example.com",
-            "af2ak12",
-            "90841"
-        )
-
-        val logoutResponse = LogoutUser(
-            fakeUser.name,
-            Date.from(Instant.now())
-        )
-
-        return ResponseEntity.ok(logoutResponse)
+    fun logoutUser(@RequestBody logoutUserRequest: LogoutUserRequest): ResponseEntity<Any> {
+        logger.info("Try to logout with token: ${logoutUserRequest.token}")
+        val userName = userService.logout(logoutUserRequest.token)
+        return if (userName != null) {
+            val logoutResponse = LogoutUser(userName, Date.from(Instant.now()))
+            ResponseEntity.ok(logoutResponse)
+        } else {
+            ResponseEntity.status(401).build()
+        }
     }
 
     /**
@@ -178,5 +174,7 @@ class UserController(
 
         return  ResponseEntity.ok(fakeUser)
     }
+
+
 
 }
