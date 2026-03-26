@@ -1,6 +1,7 @@
 package com.intellijentes.sys.colasAlegres.repositories
 
 import com.intellijentes.sys.colasAlegres.models.entities.UserEntity
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 
 /**
@@ -10,4 +11,7 @@ import org.springframework.data.repository.CrudRepository
  *
  * */
 
-interface UserRepository : CrudRepository<UserEntity, String>
+interface UserRepository : CrudRepository<UserEntity, String> {
+    fun findByEmail(email: String) : UserEntity?
+    fun findByToken(token: String): UserEntity?
+}

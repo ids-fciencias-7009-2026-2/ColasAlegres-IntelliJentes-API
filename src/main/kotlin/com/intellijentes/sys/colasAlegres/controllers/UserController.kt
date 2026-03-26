@@ -4,19 +4,21 @@ import com.intellijentes.sys.colasAlegres.models.entities.domain.User
 import com.intellijentes.sys.colasAlegres.models.entities.domain.toUsuario
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.CreateUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LoginUserRequest
+import com.intellijentes.sys.colasAlegres.models.entities.dto.request.LogoutUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.request.UpdateUserRequest
 import com.intellijentes.sys.colasAlegres.models.entities.dto.response.LogoutUser
 import com.intellijentes.sys.colasAlegres.services.UserService
+import org.springframework.http.HttpStatus
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
@@ -77,6 +79,10 @@ class UserController(
         @RequestBody createUserRequest: CreateUserRequest
     ): ResponseEntity<User> {
 
+        if (!userService.isEmailValid(createUserRequest.email)) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Correo electrónico inválido")
+        }
+
         val newUser = createUserRequest.toUsuario()
         userService.create(newUser)
         logger.info("New user to register : $newUser")
@@ -100,20 +106,13 @@ class UserController(
         @RequestBody loginUserRequest: LoginUserRequest
     ): ResponseEntity<Any> {
 
-        val fakeUser = User(
-            "id-random" + UUID.randomUUID().toString(),
-            "Intellij-entes",
-            "intellijentes@example.com",
-            "123456",
-            "04510"
-        )
+        logger.info("Try to login with the email: ${loginUserRequest.email}")
 
-        logger.info("Try to make login with: $loginUserRequest")
-        return if (fakeUser.hashPassword == loginUserRequest.hashPassword) {
-            logger.info("Successful login")
-            ResponseEntity.ok(Any())
+        val token = userService.login(loginUserRequest.email, loginUserRequest.hashPassword)
+
+        return if (token != null) {
+            ResponseEntity.ok(token)
         } else {
-            logger.error("Login failed")
             ResponseEntity.status(401).build()
         }
     }
@@ -121,29 +120,24 @@ class UserController(
     /**
      * Endpoint encargado de cerrar la sesión de un usuario
      *
-     * URL: http//localhost:8080/users/logout
+     * URL: http://localhost:8080/users/logout
      *
      * Método: POST
      *
-     * @return ResponseEntity con información de logout HTTP 200 si fue un éxito
+     * @param logoutUserRequest DTO con el token activo del usuario.
+     * @return ResponseEntity con información de logout HTTP 200 si fue un éxito,
+     *      HTTP 401 si el token no es válido
      */
     @PostMapping("/logout")
-    fun logoutUser() : ResponseEntity<Any> {
-
-        val fakeUser = User(
-            "id-random" + UUID.randomUUID().toString(),
-            "ColasAlegres",
-            "colasalegres@example.com",
-            "af2ak12",
-            "90841"
-        )
-
-        val logoutResponse = LogoutUser(
-            fakeUser.name,
-            Date.from(Instant.now())
-        )
-
-        return ResponseEntity.ok(logoutResponse)
+    fun logoutUser(@RequestBody logoutUserRequest: LogoutUserRequest): ResponseEntity<Any> {
+        logger.info("Try to logout with token: ${logoutUserRequest.token}")
+        val userName = userService.logout(logoutUserRequest.token)
+        return if (userName != null) {
+            val logoutResponse = LogoutUser(userName, Date.from(Instant.now()))
+            ResponseEntity.ok(logoutResponse)
+        } else {
+            ResponseEntity.status(401).build()
+        }
     }
 
     /**
@@ -159,6 +153,10 @@ class UserController(
     fun updateInfoUser(
         @RequestBody updateUserRequest: UpdateUserRequest
     ): ResponseEntity<Any> {
+
+        if (!userService.isEmailValid(updateUserRequest.email)) {
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Correo electrónico inválido")
+        }
 
         val fakeUser = User(
             "id-random" + UUID.randomUUID().toString(),
@@ -176,5 +174,7 @@ class UserController(
 
         return  ResponseEntity.ok(fakeUser)
     }
+
+
 
 }
