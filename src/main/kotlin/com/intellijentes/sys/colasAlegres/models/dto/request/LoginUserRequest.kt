@@ -1,4 +1,4 @@
-package com.intellijentes.sys.colasAlegres.models.entities.dto.request
+package com.intellijentes.sys.colasAlegres.models.dto.request
 
 /**
  * DTO mediante el cual recibimos el correo y la contraseña como

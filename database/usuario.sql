@@ -1,8 +1,11 @@
-CREATE TABLE user (
-    id VARCHAR(36) PRIMARY KEY,
+CREATE TABLE users (
+    id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(45) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    hash_password VARCHAR(255),
+    password VARCHAR(255),
     zip_code VARCHAR(10) NOT NULL,
-    is_active TINYINT(1) DEFAULT 1
+    is_active TINYINT(1) DEFAULT 1,
+    token VARCHAR(255),
+    token_expires_at DATETIME(6),
+    PRIMARY KEY (id)
 );

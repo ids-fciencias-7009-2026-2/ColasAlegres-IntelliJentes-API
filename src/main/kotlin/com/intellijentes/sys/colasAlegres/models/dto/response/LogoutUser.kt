@@ -1,4 +1,4 @@
-package com.intellijentes.sys.colasAlegres.models.entities.dto.response
+package com.intellijentes.sys.colasAlegres.models.dto.response
 
 import java.util.Date
 

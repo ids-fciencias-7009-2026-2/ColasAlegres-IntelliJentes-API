@@ -1,6 +1,6 @@
-package com.intellijentes.sys.colasAlegres.models.entities.domain
+package com.intellijentes.sys.colasAlegres.models.domain
 
-import com.intellijentes.sys.colasAlegres.models.entities.dto.request.CreateAnimalRequest
+import com.intellijentes.sys.colasAlegres.models.dto.request.CreateAnimalRequest
 import java.util.UUID
 
 /**
