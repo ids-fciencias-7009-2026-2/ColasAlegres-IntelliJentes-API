@@ -119,14 +119,11 @@ class UserService(private val userRepository: UserRepository) {
 
     fun updateCurrentUser(
             authorizationHeader: String?,
-            newEmail: String,
-            newPassword: String
+            newEmail: String?,
+            newPassword: String?
     ): User? {
-        if (!isEmailValid(newEmail)) {
-            throw IllegalArgumentException("El correo electrónico no tiene un formato válido")
-        }
-        if (newPassword.isBlank()) {
-            throw IllegalArgumentException("La contraseña es obligatoria")
+        if (newEmail == null && newPassword == null) {
+            throw IllegalArgumentException("Debes enviar al menos un campo para actualizar")
         }
 
         val token = extractBearerToken(authorizationHeader) ?: return null
@@ -136,14 +133,26 @@ class UserService(private val userRepository: UserRepository) {
             return null
         }
 
-        val normalizedEmail = normalizeEmail(newEmail)
-        val userWithSameEmail = userRepository.findByEmailIgnoreCase(normalizedEmail)
-        if (userWithSameEmail != null && userWithSameEmail.id != searchedUser.id) {
-            throw IllegalStateException("Ya existe un usuario con ese correo electrónico")
+        if (newEmail != null) {
+            if (!isEmailValid(newEmail)) {
+                throw IllegalArgumentException("El correo electrónico no tiene un formato válido")
+            }
+
+            val normalizedEmail = normalizeEmail(newEmail)
+            val userWithSameEmail = userRepository.findByEmailIgnoreCase(normalizedEmail)
+            if (userWithSameEmail != null && userWithSameEmail.id != searchedUser.id) {
+                throw IllegalStateException("Ya existe un usuario con ese correo electrónico")
+            }
+            searchedUser.email = normalizedEmail
         }
 
-        searchedUser.email = normalizedEmail
-        searchedUser.password = hashPassword(newPassword)
+        if (newPassword != null) {
+            if (newPassword.isBlank()) {
+                throw IllegalArgumentException("La contraseña no puede estar vacía")
+            }
+            searchedUser.password = hashPassword(newPassword)
+        }
+
         userRepository.save(searchedUser)
         return searchedUser.toUser()
     }

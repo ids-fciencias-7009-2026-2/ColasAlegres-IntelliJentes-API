@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
@@ -109,7 +109,10 @@ class UserController(
         return if (token != null) {
             ResponseEntity.ok(token)
         } else {
-            ResponseEntity.status(401).build()
+            throw ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Credenciales inválidas o usuario no registrado"
+            )
         }
     }
 
@@ -134,7 +137,7 @@ class UserController(
             val logoutResponse = LogoutUser(userName, Date.from(Instant.now()))
             ResponseEntity.ok(logoutResponse)
         } else {
-            ResponseEntity.status(401).build()
+            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido o caducado")
         }
     }
 
@@ -143,11 +146,11 @@ class UserController(
      *
      * URL: http//localhost:8080/users
      *
-     * Método: PUT
+     * Método: PATCH
      *
      * @return ResponseEntity con la información del usuario actualizada
      */
-    @PutMapping
+    @PatchMapping
     fun updateInfoUser(
             @RequestHeader(name = "Authorization", required = false) authorizationHeader: String?,
             @RequestBody updateUserRequest: UpdateUserRequest
