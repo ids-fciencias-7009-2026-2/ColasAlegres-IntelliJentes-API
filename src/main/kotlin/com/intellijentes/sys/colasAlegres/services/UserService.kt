@@ -1,9 +1,9 @@
 package com.intellijentes.sys.colasAlegres.services
 
-import com.intellijentes.sys.colasAlegres.models.UserEntity
+import com.intellijentes.sys.colasAlegres.models.entities.UserEntity
 import com.intellijentes.sys.colasAlegres.models.domain.User
-import com.intellijentes.sys.colasAlegres.models.toUser
-import com.intellijentes.sys.colasAlegres.models.toUserEntity
+import com.intellijentes.sys.colasAlegres.models.entities.toUser
+import com.intellijentes.sys.colasAlegres.models.entities.toUserEntity
 import com.intellijentes.sys.colasAlegres.repositories.UserRepository
 import java.security.MessageDigest
 import java.time.Duration

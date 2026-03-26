@@ -1,6 +1,6 @@
 package com.intellijentes.sys.colasAlegres.repositories
 
-import com.intellijentes.sys.colasAlegres.models.UserEntity
+import com.intellijentes.sys.colasAlegres.models.entities.UserEntity
 import org.springframework.data.repository.CrudRepository
 
 /**
