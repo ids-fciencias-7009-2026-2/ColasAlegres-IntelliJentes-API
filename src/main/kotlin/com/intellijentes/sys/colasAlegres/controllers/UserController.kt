@@ -130,9 +130,11 @@ class UserController(
      * ```
      */
     @PostMapping("/logout")
-    fun logoutUser(@RequestBody logoutUserRequest: LogoutUserRequest): ResponseEntity<Any> {
-        logger.info("Try to logout with token: ${logoutUserRequest.token}")
-        val userName = userService.logout(logoutUserRequest.token.trim())
+    fun logoutUser(
+        @RequestHeader(name = "Authorization", required = false) authorizationHeader: String
+    ): ResponseEntity<Any> {
+        logger.info("Try to logout with token: $authorizationHeader}")
+        val userName = userService.logout(authorizationHeader)
         return if (userName != null) {
             val logoutResponse = LogoutUser(userName, Date.from(Instant.now()))
             ResponseEntity.ok(logoutResponse)

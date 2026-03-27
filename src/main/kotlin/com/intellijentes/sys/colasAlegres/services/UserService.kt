@@ -167,9 +167,9 @@ class UserService(private val userRepository: UserRepository) {
      * @return String el nombre del usuario que cerro sesion, o null si el token es invalido.
      */
     fun logout(token: String): String? {
-        if (token.isBlank()) {
-            return null
-        }
+
+        val token = extractBearerToken(token) ?: return null
+        if (token.isBlank()) return null
 
         val searchedUser = userRepository.findByToken(token) ?: return null
         if (!isTokenValid(searchedUser)) {
