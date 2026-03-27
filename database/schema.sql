@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS colasalegresdb;
+USE colasalegresdb;
+DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(45) NOT NULL,
