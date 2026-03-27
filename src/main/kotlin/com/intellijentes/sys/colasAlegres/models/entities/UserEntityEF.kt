@@ -1,15 +1,16 @@
-package com.intellijentes.sys.colasAlegres.models
+package com.intellijentes.sys.colasAlegres.models.entities
 
+import com.intellijentes.sys.colasAlegres.models.entities.UserEntity
 import com.intellijentes.sys.colasAlegres.models.domain.User
 
 /* Regresa una instancia de EntidadUsuario a apartir del Usuario actual */
 fun User.toUserEntity(): UserEntity {
     return UserEntity(
-            id = this.id,
-            name = this.name,
-            email = this.email,
-            password = hashPassword,
-            zipCode = this.zipCode
+        id = this.id,
+        name = this.name,
+        email = this.email,
+        password = hashPassword,
+        zipCode = this.zipCode
     )
 }
 
