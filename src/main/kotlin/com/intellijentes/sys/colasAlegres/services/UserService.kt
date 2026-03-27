@@ -34,9 +34,9 @@ class UserService(private val userRepository: UserRepository) {
     }
 
     /**
-     * Metodo que nos permite implementar una funcion hash para cifrar las credenciales sensibles
+     * Método que nos permite implementar una función hash para cifrar las credenciales sensibles
      * del sistema, como son contraseñas o tokens
-     * @param userPassword: recibe la cotraseña sin cifrar.
+     * @param userPassword: recibe la contraseña sin cifrar.
      * @return encodedHash: la contraseña con hash aplicado.
      */
     private fun hashPassword(userPassword: String): String {
@@ -52,7 +52,7 @@ class UserService(private val userRepository: UserRepository) {
     }
 
     /**
-     * Metodo que crea una nueva instancia UserEntity para el userRepository. Recibe el usuario que
+     * Método que crea una nueva instancia UserEntity para el userRepository. Recibe el usuario que
      * se intenta registrar, antes de guardarlo, asegurate que la contraseña este cifrada.
      *
      * @param user: Recibe un usuario.
@@ -74,18 +74,21 @@ class UserService(private val userRepository: UserRepository) {
         user.hashPassword = hashPassword(currentHash)
         val userEntity = user.toUserEntity()
         userRepository.save(userEntity)
+        val searchedUser = userRepository.findByEmailIgnoreCase(normalizedEmail)
+        if (searchedUser != null)
+            user.id = searchedUser.id
         return user
     }
 
     /**
-     * Metodo que realiza el inicio de sesion de un usuario.
+     * Método que realiza el inicio de sesión de un usuario.
      *
-     * Un usuario solo tiene permitido iniciar sesion si sus credenciales son correctas y si ya
-     * tiene una cuenta registrada en la base de datos, de lo contrario no podra acceder.
+     * Un usuario solo tiene permitido iniciar sesión si sus credenciales son correctas y si ya
+     * tiene una cuenta registrada en la base de datos, de lo contrario no podrá acceder.
      *
-     * @param email el correo electronico del usuario.
-     * @param password la contrasenia sin hasheo del usuario.
-     * @return String el token generado para su inicio de sesion.
+     * @param email el correo electrónico del usuario.
+     * @param password la contraseña sin hasheo del usuario.
+     * @return String el token generado para su inicio de sesión.
      */
     fun login(email: String, password: String): String? {
         if (email.isBlank() || password.isBlank()) {
