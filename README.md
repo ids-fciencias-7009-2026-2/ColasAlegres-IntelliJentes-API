@@ -52,7 +52,7 @@ Por ejemplo:
 mysql -u root -p < database/schema.sql
 ```
 
-Después de ingresar tu contraseña, la base de datos `colas_alegres` se creará automáticamente junto con sus tablas.
+Después de ingresar tu contraseña, la base de datos `colasalegresdb` se creará automáticamente junto con sus tablas.
 
 ---
 
@@ -62,7 +62,7 @@ La aplicación lee las credenciales de la base de datos desde variables de entor
 
 | Variable      | Descripción                               | Ejemplo                        |
 | ------------- | ----------------------------------------- | ------------------------------ |
-| `URL_DB`      | Host, puerto y nombre de la base de datos | `localhost:3306/colas_alegres` |
+| `URL_DB`      | Host, puerto y nombre de la base de datos | `localhost:3306/colasalegresdb` |
 | `USER_DB`     | Usuario de MySQL                          | `root`                         |
 | `PASSWORD_DB` | Contraseña de MySQL                       | `mi_password`                  |
 
@@ -73,7 +73,7 @@ Este archivo debe crearse manualmente en la raíz del proyecto y **no debe subir
 Ejemplo de archivo `.env`:
 
 ```
-URL_DB=localhost:3306/colas_alegres
+URL_DB=localhost:3306/colasalegresdb
 USER_DB=tu_usuario
 PASSWORD_DB=tu_password
 ```
